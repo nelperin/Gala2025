@@ -119,19 +119,20 @@
 </head>
 <body>
   <div class="container">
+
     <!-- לוגו -->
     <div class="logo">
-      <!-- כשאתה מעלה ל-GitHub, דאג שהקובץ יהיה באותה תיקייה בשם הזה -->
       <img src="New Gala Logo 2022.png" alt="Gala 2025 Logo" />
     </div>
 
-    <!-- כותרת בעברית ואנגלית -->
+    <!-- כותרת -->
     <h1>
       גאלה 2025<br />
       <span style="font-size: 0.9em;">Gala 2025</span>
     </h1>
 
     <form id="registrationForm">
+
       <!-- פרטי המזמין -->
       <h2>פרטי המזמין / Registrant Details</h2>
 
@@ -157,54 +158,35 @@
 
       <label>
         כמות כרטיסים / Number of Tickets
-        <input type="number" id="ticketCount" name="ticket_count" min="1" value="1" required />
+        <input type="number" id="ticketCount" min="1" value="1" />
       </label>
-
-      <p class="note">
-        אם אתה נרשם לבד, הפרטים שלך ישמשו כפרטי המשתתף. אם אתה רושם משתתפים נוספים,
-        מלא בבקשה את הפרטים עבור כל אחד.
-        <br />
-        If you register only for yourself, your details will be used as the participant's details.
-        If you register additional guests, please fill in details for each.
-      </p>
 
       <!-- משתתף ראשון = המזמין -->
       <div class="participants">
         <div class="participant-card">
-          <div class="participant-title">
-            משתתף 1 (המזמין) / Participant 1 (Registrant)
-          </div>
-
-          <p class="note">
-            שם המשתתף יהיה כמו שם המזמין. כאן יש לבחור אוניברסיטה וסוג משתתף.
-            <br />
-            Participant name will be the same as the registrant's name. Please choose university and participant type.
-          </p>
+          <div class="participant-title">משתתף 1 (המזמין) / Participant 1 (Registrant)</div>
 
           <label>
             אוניברסיטה / University
-            <input type="text" id="primary_participant_university" name="primary_participant_university" required />
+            <input type="text" id="primary_participant_university" required />
           </label>
 
           <div class="row">
             <div>
               <label>
                 סוג משתתף / Participant Type
-                <select id="primary_participant_type" name="primary_participant_type" required>
+                <select id="primary_participant_type" required>
                   <option value="">בחר / Select</option>
-                  <option value="student">
-                    סטודנט / בוגר טרי (מחזור 2023 ומעלה) / Student or Class of 2023+
-                  </option>
-                  <option value="veteran">
-                    בוגר ותיק / Senior Alum
-                  </option>
+                  <option value="student">סטודנט / בוגר טרי (2023+) – 300 ₪</option>
+                  <option value="veteran">בוגר ותיק – 360 ₪</option>
                 </select>
               </label>
             </div>
+
             <div>
               <label>
                 תעריף (₪) / Rate (NIS)
-                <input type="number" id="primary_participant_rate" name="primary_participant_rate" readonly />
+                <input type="number" id="primary_participant_rate" readonly />
               </label>
             </div>
           </div>
@@ -212,274 +194,186 @@
 
         <!-- משתתפים נוספים -->
         <div id="extraParticipantsContainer"></div>
+
       </div>
 
       <div class="actions">
-        <button type="button" class="btn btn-add" id="addParticipantBtn">
-          הוסף משתתף נוסף / Add Participant
-        </button>
+        <button type="button" class="btn btn-add" id="addParticipantBtn">הוסף משתתף נוסף / Add Participant</button>
 
-        <div class="total-amount" id="totalAmount">
-          סה״כ לתשלום (משוער): 0 ₪
-          <br />
-          Estimated total: 0 NIS
-        </div>
+        <div class="total-amount" id="totalAmount">סה״כ: 0 ₪</div>
 
         <button type="button" class="btn btn-submit" id="submitBtn">
-          שליחת רישום (ללא תשלום) / Submit Registration (No Payment Yet)
+          שליחת רישום (ללא תשלום)
         </button>
       </div>
-
-      <p class="note">
-        בשלב זה זהו ניסוי רישום בלבד, ללא חיבור לתשלום.
-        <br />
-        This is currently a registration test only, without payment.
-      </p>
 
       <!-- דמי ביטול -->
       <div class="policy">
         <strong>דמי ביטול:</strong><br />
-        ביטול עד 72 שעות לפני האירוע – יחויב ב-6% דמי ביטול.
-        ביטול בתוך 72 שעות לפני האירוע – לא יהיו החזרים.
+        ביטול עד 72 שעות לפני האירוע – חיוב 6%.<br />
+        ביטול בתוך 72 שעות לפני האירוע – אין החזרים.
         <br /><br />
         <strong>Cancellation Policy:</strong><br />
-        Cancellations made up to 72 hours before the event will be charged a 6% cancellation fee.
-        Cancellations within 72 hours before the event are non-refundable.
+        Up to 72 hours before event: 6% fee.<br />
+        Within 72 hours: no refunds.
       </div>
+
     </form>
   </div>
 
-  <script>
-    // ***** כאן אתה מדביק את ה-URL מה-Apps Script שלך *****
-    const SCRIPT_URL = "PASTE_YOUR_SCRIPT_WEB_APP_URL_HERE";
+<script>
+/* ה-Webhook שלך */
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_WagRoHeeBQFSItvbqIPWXEhf2HzFCw9ERLLZEdhqkMeOJB5vBomB1sgGZQq2lQEZ/exec";
 
-    const ticketCountInput = document.getElementById("ticketCount");
-    const extraContainer = document.getElementById("extraParticipantsContainer");
-    const addParticipantBtn = document.getElementById("addParticipantBtn");
-    const primaryTypeSelect = document.getElementById("primary_participant_type");
-    const primaryRateInput = document.getElementById("primary_participant_rate");
-    const totalAmountEl = document.getElementById("totalAmount");
-    const submitBtn = document.getElementById("submitBtn");
-    const form = document.getElementById("registrationForm");
+/* פונקציית תעריף */
+function getRateForType(type) {
+  return type === "student" ? 300 : type === "veteran" ? 360 : 0;
+}
 
-    function getRateForType(type) {
-      if (type === "student") return 300;
-      if (type === "veteran") return 360;
-      return 0;
-    }
+const ticketCountInput = document.getElementById("ticketCount");
+const primaryType = document.getElementById("primary_participant_type");
+const primaryRate = document.getElementById("primary_participant_rate");
+const totalAmountEl = document.getElementById("totalAmount");
+const extraContainer = document.getElementById("extraParticipantsContainer");
 
-    function updatePrimaryRate() {
-      const type = primaryTypeSelect.value;
-      const rate = getRateForType(type);
-      primaryRateInput.value = rate || "";
-      recalcTotal();
-    }
+/* עדכון מחיר למשתתף 1 */
+primaryType.addEventListener("change", () => {
+  primaryRate.value = getRateForType(primaryType.value);
+  updateTotal();
+});
 
-    function createExtraParticipantCard(index) {
-      const div = document.createElement("div");
-      div.className = "participant-card extra-participant";
-      div.dataset.index = index;
+/* יצירת משתתפים נוספים */
+function createExtraParticipantCard(i) {
+  const card = document.createElement("div");
+  card.className = "participant-card extra";
+  card.dataset.index = i;
 
-      div.innerHTML = `
-        <div class="participant-title">
-          משתתף ${index} / Participant ${index}
-        </div>
-        <div class="row">
-          <div>
-            <label>
-              שם פרטי / First Name
-              <input type="text" name="participant_${index}_first_name" required />
-            </label>
-          </div>
-          <div>
-            <label>
-              שם משפחה / Last Name
-              <input type="text" name="participant_${index}_last_name" required />
-            </label>
-          </div>
-        </div>
-        <label>
-          אוניברסיטה / University
-          <input type="text" name="participant_${index}_university" required />
+  card.innerHTML = `
+    <div class="participant-title">משתתף ${i} / Participant ${i}</div>
+
+    <div class="row">
+      <div>
+        <label>שם פרטי / First Name
+          <input type="text" name="fn${i}" required />
         </label>
-        <div class="row">
-          <div>
-            <label>
-              סוג משתתף / Participant Type
-              <select class="participant-type" name="participant_${index}_type" required>
-                <option value="">בחר / Select</option>
-                <option value="student">
-                  סטודנט / בוגר טרי (מחזור 2023 ומעלה) / Student or Class of 2023+
-                </option>
-                <option value="veteran">
-                  בוגר ותיק / Senior Alum
-                </option>
-              </select>
-            </label>
-          </div>
-          <div>
-            <label>
-              תעריף (₪) / Rate (NIS)
-              <input type="number" class="participant-rate" name="participant_${index}_rate" readonly />
-            </label>
-          </div>
-        </div>
-      `;
+      </div>
+      <div>
+        <label>שם משפחה / Last Name
+          <input type="text" name="ln${i}" required />
+        </label>
+      </div>
+    </div>
 
-      // לחיבור התעריף האוטומטי
-      const typeSelect = div.querySelector(".participant-type");
-      const rateInput = div.querySelector(".participant-rate");
+    <label>אוניברסיטה / University
+      <input type="text" name="uni${i}" required />
+    </label>
 
-      typeSelect.addEventListener("change", function () {
-        const rate = getRateForType(typeSelect.value);
-        rateInput.value = rate || "";
-        recalcTotal();
-      });
+    <div class="row">
+      <div>
+        <label>סוג משתתף / Participant Type
+          <select name="type${i}" class="type-select" required>
+            <option value="">בחר / Select</option>
+            <option value="student">סטודנט / בוגר טרי (2023+) – 300 ₪</option>
+            <option value="veteran">בוגר ותיק – 360 ₪</option>
+          </select>
+        </label>
+      </div>
 
-      return div;
-    }
+      <div>
+        <label>תעריף (₪) / Rate
+          <input type="number" name="rate${i}" class="rate-input" readonly />
+        </label>
+      </div>
+    </div>
+  `;
 
-    function syncExtraParticipants() {
-      let ticketCount = parseInt(ticketCountInput.value, 10);
-      if (isNaN(ticketCount) || ticketCount < 1) ticketCount = 1;
-      ticketCountInput.value = ticketCount;
+  const typeSelect = card.querySelector(".type-select");
+  const rateInput = card.querySelector(".rate-input");
 
-      // מספר המשתתפים הנוספים = סה"כ כרטיסים פחות 1 (המזמין)
-      const desiredExtras = Math.max(ticketCount - 1, 0);
+  typeSelect.addEventListener("change", () => {
+    rateInput.value = getRateForType(typeSelect.value);
+    updateTotal();
+  });
 
-      // בניה מחדש כדי להימנע מבעיות אינדקס
-      extraContainer.innerHTML = "";
-      for (let index = 2; index <= ticketCount; index++) {
-        extraContainer.appendChild(createExtraParticipantCard(index));
-      }
+  return card;
+}
 
-      recalcTotal();
-    }
+function syncParticipants() {
+  const count = parseInt(ticketCountInput.value) || 1;
+  extraContainer.innerHTML = "";
 
-    function recalcTotal() {
-      let total = 0;
+  for (let i = 2; i <= count; i++) {
+    extraContainer.appendChild(createExtraParticipantCard(i));
+  }
 
-      // משתתף ראשון
-      const primaryType = primaryTypeSelect.value;
-      total += getRateForType(primaryType);
+  updateTotal();
+}
 
-      // משתתפים נוספים
-      document.querySelectorAll(".extra-participant").forEach((card) => {
-        const typeSelect = card.querySelector(".participant-type");
-        if (!typeSelect) return;
-        const type = typeSelect.value;
-        total += getRateForType(type);
-      });
+ticketCountInput.addEventListener("change", syncParticipants);
 
-      totalAmountEl.innerHTML =
-        'סה״כ לתשלום (משוער): ' + total + ' ₪' +
-        '<br />Estimated total: ' + total + ' NIS';
-    }
+/* חישוב סה"כ */
+function updateTotal() {
+  let sum = 0;
+  sum += getRateForType(primaryType.value);
 
-    ticketCountInput.addEventListener("change", syncExtraParticipants);
-    addParticipantBtn.addEventListener("click", () => {
-      let current = parseInt(ticketCountInput.value, 10) || 1;
-      ticketCountInput.value = current + 1;
-      syncExtraParticipants();
+  document.querySelectorAll(".extra").forEach(card => {
+    const type = card.querySelector(".type-select").value;
+    sum += getRateForType(type);
+  });
+
+  totalAmountEl.textContent = "סה״כ: " + sum + " ₪";
+}
+
+/* שליחת רישום */
+async function handleSubmit() {
+  const buyer = {
+    first_name: document.querySelector('[name="primary_first_name"]').value.trim(),
+    last_name: document.querySelector('[name="primary_last_name"]').value.trim(),
+    email: document.querySelector('[name="primary_email"]').value.trim(),
+    phone: document.querySelector('[name="primary_phone"]').value.trim()
+  };
+
+  const participants = [];
+  
+  /* משתתף 1 */
+  participants.push({
+    first_name: buyer.first_name,
+    last_name: buyer.last_name,
+    university: document.getElementById("primary_participant_university").value.trim(),
+    type: primaryType.value,
+    rate: getRateForType(primaryType.value)
+  });
+
+  /* משתתפים נוספים */
+  document.querySelectorAll(".extra").forEach(card => {
+    const i = card.dataset.index;
+    participants.push({
+      first_name: card.querySelector(`[name="fn${i}"]`).value.trim(),
+      last_name: card.querySelector(`[name="ln${i}"]`).value.trim(),
+      university: card.querySelector(`[name="uni${i}"]`).value.trim(),
+      type: card.querySelector(`[name="type${i}"]`).value,
+      rate: getRateForType(card.querySelector(`[name="type${i}"]`).value)
     });
-    primaryTypeSelect.addEventListener("change", updatePrimaryRate);
+  });
 
-    async function submitRegistrationToSheet(payload) {
-      if (!SCRIPT_URL || SCRIPT_URL === "PASTE_YOUR_SCRIPT_WEB_APP_URL_HERE") {
-        alert("לא הוגדר SCRIPT_URL. נא להדביק את כתובת ה-Web App של Google Apps Script בקוד.");
-        return;
-      }
+  /* שליחה ל-Google Sheet */
+  await fetch(SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ buyer, participants })
+  });
 
-      try {
-        await fetch(SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors", // כדי לעקוף CORS – לא נקרא תגובה
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-      } catch (err) {
-        console.error("Error sending to Google Script:", err);
-      }
-    }
+  alert("ההרשמה נשלחה בהצלחה! בדוק את ה־Google Sheet ואת המייל שלך.");
+}
 
-    async function handleSubmit() {
-      // בדיקת ולידציה בסיסית של ה-HTML
-      if (!form.checkValidity()) {
-        // גורם לדפדפן להציג הודעות שגיאה רגילות
-        form.reportValidity();
-        return;
-      }
+/* כפתור שליחה */
+document.getElementById("submitBtn").addEventListener("click", handleSubmit);
 
-      const buyerFirst = document.querySelector('[name="primary_first_name"]').value.trim();
-      const buyerLast = document.querySelector('[name="primary_last_name"]').value.trim();
-      const buyerEmail = document.querySelector('[name="primary_email"]').value.trim();
-      const buyerPhone = document.querySelector('[name="primary_phone"]').value.trim();
+/* הפעלה ראשונית */
+syncParticipants();
+</script>
 
-      const primaryUniversity = document.getElementById("primary_participant_university").value.trim();
-      const primaryType = primaryTypeSelect.value;
-      const primaryRate = getRateForType(primaryType);
-
-      const ticketCount = parseInt(ticketCountInput.value, 10) || 1;
-
-      const participants = [];
-
-      // משתתף 1 = המזמין
-      participants.push({
-        first_name: buyerFirst,
-        last_name: buyerLast,
-        university: primaryUniversity,
-        type: primaryType,
-        rate: primaryRate,
-      });
-
-      // משתתפים נוספים
-      document.querySelectorAll(".extra-participant").forEach((card) => {
-        const idx = card.dataset.index;
-        const firstName = card.querySelector(`[name="participant_${idx}_first_name"]`).value.trim();
-        const lastName = card.querySelector(`[name="participant_${idx}_last_name"]`).value.trim();
-        const university = card.querySelector(`[name="participant_${idx}_university"]`).value.trim();
-        const type = card.querySelector(`[name="participant_${idx}_type"]`).value;
-        const rate = getRateForType(type);
-
-        participants.push({
-          first_name: firstName,
-          last_name: lastName,
-          university: university,
-          type: type,
-          rate: rate,
-        });
-      });
-
-      // לוודא שמספר המשתתפים מתאים לכמות הכרטיסים
-      if (participants.length !== ticketCount) {
-        alert("מספר המשתתפים לא תואם את כמות הכרטיסים. אנא בדוק שוב.");
-        return;
-      }
-
-      const payload = {
-        buyer: {
-          first_name: buyerFirst,
-          last_name: buyerLast,
-          email: buyerEmail,
-          phone: buyerPhone,
-        },
-        participants: participants,
-      };
-
-      // שליחה ל-Google Sheet + מייל
-      await submitRegistrationToSheet(payload);
-
-      alert("הרישום נשלח לגיליון Google Sheets. בדוק את הגיליון ואת המייל שלך.\nRegistration submitted to Google Sheets. Please check your sheet and email.");
-
-      // אם תרצה בעתיד להפנות לתשלום, אפשר כאן:
-      // window.location.href = "https://your-payment-link.com";
-    }
-
-    submitBtn.addEventListener("click", handleSubmit);
-
-    // הפעלה ראשונית
-    syncExtraParticipants();
-    updatePrimaryRate();
-  </script>
 </body>
 </html>
+
