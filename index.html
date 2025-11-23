@@ -13,16 +13,17 @@
       direction: rtl;
     }
 
-    /* לוגו לכל רוחב העמוד */
+    /* לוגו ברוחב הטופס */
     .logo {
-      width: 100%;
-      margin: 0;
-      padding: 0;
+      text-align: center;
+      margin-bottom: 20px;
     }
     .logo img {
       width: 100%;
+      max-width: 600px; /* גודל טופס */
       height: auto;
       display: block;
+      margin: 0 auto;
     }
 
     .container {
@@ -51,7 +52,6 @@
       display: block;
       margin-top: 10px;
       font-weight: bold;
-      font-size: 0.95rem;
     }
 
     input, select {
@@ -59,12 +59,9 @@
       padding: 8px;
       margin-top: 4px;
       box-sizing: border-box;
-      font-size: 0.95rem;
     }
 
-    .participants {
-      margin-top: 15px;
-    }
+    .participants { margin-top: 15px; }
 
     .participant-card {
       border: 1px solid #ddd;
@@ -74,21 +71,10 @@
       background: #fafafa;
     }
 
-    .participant-title {
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
+    .participant-title { font-weight: bold; margin-bottom: 10px; }
 
-    .row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .row > div {
-      flex: 1;
-      min-width: 180px;
-    }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .row > div { flex: 1; min-width: 180px; }
 
     .actions {
       margin-top: 25px;
@@ -104,345 +90,232 @@
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
       font-size: 0.95rem;
     }
+    .btn-add { background: #e0e0e0; }
+    .btn-submit { background: #b31b1b; color: white; }
 
-    .btn-add {
-      background: #e0e0e0;
-    }
+    .note { font-size: 0.9em; color: #555; margin-top: 8px; }
 
-    .btn-submit {
-      background: #b31b1b;
-      color: #fff;
-    }
-
-    .note {
-      font-size: 0.9em;
-      color: #555;
-      margin-top: 8px;
-    }
-
-    .total-amount {
-      font-weight: bold;
-      font-size: 1rem;
-      margin-top: 10px;
-    }
+    .total-amount { font-weight: bold; font-size: 1.1em; }
 
     .policy {
       margin-top: 25px;
       padding: 15px;
       background: #fff3cd;
       border: 1px solid #f1c40f;
-      border-radius: 5px;
-      font-size: 0.95rem;
-      color: #444;
+      border-radius: 6px;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- לוגו רוחב מלא -->
-  <div class="logo">
-    <!-- ודא שב-GitHub שם הקובץ זהה בדיוק -->
-    <img src="New Gala Logo 2022.png" alt="Gala Logo" />
-  </div>
-
   <div class="container">
-    <h1>
-      גאלה 2025<br />
-      <span style="font-size: 0.9em;">Gala 2025</span>
-    </h1>
+
+    <!-- לוגו -->
+    <div class="logo">
+      <img src="New Gala Logo 2022.png" alt="Gala Logo"/>
+    </div>
+
+    <h1>גאלה 2025<br><span style="font-size:0.9em">Gala 2025</span></h1>
 
     <form id="registrationForm">
 
-      <!-- פרטי מזמין -->
-      <h2>פרטי המזמין (משמשים גם כמשתתף 1) / Registrant Details</h2>
+      <h2>פרטי המזמין (משמשים כמשתתף 1)</h2>
 
-      <label>שם פרטי / First Name
-        <input type="text" name="primary_first_name" id="buyer_first_name" required />
+      <label>שם פרטי
+        <input type="text" id="buyer_first_name" required />
       </label>
 
-      <label>שם משפחה / Last Name
-        <input type="text" name="primary_last_name" id="buyer_last_name" required />
+      <label>שם משפחה
+        <input type="text" id="buyer_last_name" required />
       </label>
 
-      <label>דוא״ל / Email
-        <input type="email" name="primary_email" required />
+      <label>דוא״ל
+        <input type="email" id="buyer_email" required />
       </label>
 
-      <label>טלפון / Phone
-        <input type="tel" name="primary_phone" />
+      <label>טלפון
+        <input type="tel" id="buyer_phone" />
       </label>
 
-      <label>כמות כרטיסים / Number of Tickets
+      <label>כמות כרטיסים
         <input type="number" id="ticketCount" min="1" value="1" required />
       </label>
 
       <p class="note">
-        אם אתה נרשם רק לעצמך – הפרטים שלך יועתקו אוטומטית למשתתף 1 למטה (אין צורך למלא פעמיים).
-        אם אתה רושם משתתפים נוספים – הוסף אותם כמשתתפים 2,3 וכו'.
+        אם אתה נרשם לבד — אין צורך למלא שוב את פרטי המשתתף למטה.
       </p>
 
       <div class="participants">
 
-        <!-- משתתף 1 = המזמין -->
         <div class="participant-card">
-          <div class="participant-title">
-            משתתף 1 (המזמין) / Participant 1 (Registrant)
-          </div>
-
-          <p class="note">
-            שם המשתתף הראשון מתעדכן אוטומטית מפרטי המזמין למעלה.
-          </p>
+          <div class="participant-title">משתתף 1 (המזמין)</div>
 
           <div class="row">
             <div>
-              <label>שם פרטי משתתף / Participant First Name
-                <input type="text" id="primary_participant_first" readonly />
+              <label>שם פרטי משתתף
+                <input type="text" id="p1_first" readonly />
               </label>
             </div>
+
             <div>
-              <label>שם משפחה משתתף / Participant Last Name
-                <input type="text" id="primary_participant_last" readonly />
+              <label>שם משפחה משתתף
+                <input type="text" id="p1_last" readonly />
               </label>
             </div>
           </div>
 
-          <label>אוניברסיטה / University
-            <input type="text" id="primary_university" required />
+          <label>אוניברסיטה
+            <input type="text" id="p1_uni" required />
           </label>
 
           <div class="row">
             <div>
-              <label>סוג כרטיס / Ticket Type
-                <select id="primary_type" required>
-                  <option value="">בחר / Select</option>
-                  <option value="fresh">בוגר טרי (מחזור 2023+) – 300 ₪</option>
+              <label>סוג כרטיס
+                <select id="p1_type" required>
+                  <option value="">בחר</option>
+                  <option value="fresh">בוגר טרי – 300 ₪</option>
                   <option value="veteran">בוגר ותיק – 360 ₪</option>
                 </select>
               </label>
             </div>
 
             <div>
-              <label>תעריף (₪) / Rate (NIS)
-                <input type="number" id="primary_rate" readonly />
+              <label>תעריף (₪)
+                <input type="number" id="p1_rate" readonly />
               </label>
             </div>
           </div>
         </div>
 
-        <!-- משתתפים נוספים -->
-        <div id="extraParticipantsContainer"></div>
+        <div id="extraParticipants"></div>
+
       </div>
 
       <div class="actions">
-        <button type="button" class="btn btn-add" id="addParticipantBtn">
-          הוסף משתתף נוסף / Add Participant
-        </button>
-
-        <div class="total-amount" id="totalAmount">סה״כ: 0 ₪</div>
-
-        <button type="button" class="btn btn-submit" id="submitBtn">
-          שליחת רישום (ללא תשלום)
-        </button>
+        <button type="button" class="btn btn-add" id="addParticipantBtn">הוסף משתתף</button>
+        <div id="totalAmount">סה״כ: 0 ₪</div>
+        <button type="button" class="btn btn-submit" id="submitBtn">שליחת רישום</button>
       </div>
-
-      <p class="note">
-        זהו ניסוי רישום בלבד, ללא חיבור לתשלום בשלב זה.
-      </p>
 
       <div class="policy">
         <strong>דמי ביטול:</strong><br>
-        ביטול עד 72 שעות לפני האירוע – יחויב ב-6% דמי ביטול.<br>
-        ביטול בתוך 72 שעות לפני האירוע – לא יהיו החזרים.<br><br>
-
-        <strong>Cancellation Policy:</strong><br>
-        Cancellations up to 72 hours before the event will incur a 6% cancellation fee.<br>
-        Cancellations within 72 hours before the event are non-refundable.
+        ביטול עד 72 שעות לפני האירוע – 6% דמי ביטול.<br>
+        ביטול בתוך 72 שעות – אין החזרים.
       </div>
 
     </form>
   </div>
 
-  <script>
-    // כתובת ה-Web App מ-Google Apps Script
-    const SCRIPT_URL =
-      "https://script.google.com/macros/s/AKfycby_WagRoHeeBQFSItvbqIPWXEhf2HzFCw9ERLLZEdhqkMeOJB5vBomB1sgGZQq2lQEZ/exec";
+<script>
+const SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycby_WagRoHeeBQFSItvbqIPWXEhf2HzFCw9ERLLZEdhqkMeOJB5vBomB1sgGZQq2lQEZ/exec";
 
-    function getRate(type) {
-      if (type === "fresh") return 300;
-      if (type === "veteran") return 360;
-      return 0;
-    }
+function getRate(t) { return t === "fresh" ? 300 : t === "veteran" ? 360 : 0; }
 
-    const ticketCountInput = document.getElementById("ticketCount");
-    const extraContainer = document.getElementById("extraParticipantsContainer");
-    const primaryType = document.getElementById("primary_type");
-    const primaryRate = document.getElementById("primary_rate");
-    const totalAmountEl = document.getElementById("totalAmount");
+const buyerFirst = document.getElementById("buyer_first_name");
+const buyerLast  = document.getElementById("buyer_last_name");
+const p1First    = document.getElementById("p1_first");
+const p1Last     = document.getElementById("p1_last");
 
-    const buyerFirstInput = document.getElementById("buyer_first_name");
-    const buyerLastInput  = document.getElementById("buyer_last_name");
-    const primaryParticipantFirst = document.getElementById("primary_participant_first");
-    const primaryParticipantLast  = document.getElementById("primary_participant_last");
+buyerFirst.addEventListener("input", ()=> p1First.value = buyerFirst.value);
+buyerLast.addEventListener("input", ()=> p1Last.value  = buyerLast.value);
 
-    // סנכרון שם המזמין לשם משתתף 1
-    function syncPrimaryParticipantName() {
-      primaryParticipantFirst.value = buyerFirstInput.value;
-      primaryParticipantLast.value  = buyerLastInput.value;
-    }
-    buyerFirstInput.addEventListener("input", syncPrimaryParticipantName);
-    buyerLastInput.addEventListener("input", syncPrimaryParticipantName);
+document.getElementById("p1_type").addEventListener("change", e=>{
+  document.getElementById("p1_rate").value = getRate(e.target.value);
+  updateTotal();
+});
 
-    // עדכון מחיר למשתתף 1
-    primaryType.addEventListener("change", () => {
-      primaryRate.value = getRate(primaryType.value);
-      updateTotal();
-    });
+function updateTotal() {
+  let sum = getRate(document.getElementById("p1_type").value);
+  document.querySelectorAll(".extra").forEach(card=>{
+    const type = card.querySelector(".ptype").value;
+    sum += getRate(type);
+  });
+  document.getElementById("totalAmount").innerText = "סה״כ: " + sum + " ₪";
+}
 
-    // יצירת כרטיס למשתתף נוסף
-    function createExtraCard(i) {
-      const div = document.createElement("div");
-      div.className = "participant-card extra";
-      div.dataset.index = i;
-
-      div.innerHTML = `
-        <div class="participant-title">משתתף ${i} / Participant ${i}</div>
-
-        <div class="row">
-          <div>
-            <label>שם פרטי / First Name
-              <input type="text" name="fn${i}" required />
-            </label>
-          </div>
-          <div>
-            <label>שם משפחה / Last Name
-              <input type="text" name="ln${i}" required />
-            </label>
-          </div>
-        </div>
-
-        <label>אוניברסיטה / University
-          <input type="text" name="uni${i}" required />
+function addParticipant(i){
+  const div = document.createElement("div");
+  div.className = "participant-card extra";
+  div.innerHTML = `
+    <div class="participant-title">משתתף ${i}</div>
+    <div class="row">
+      <div><label>שם פרטי<input type="text" class="pfirst" required></label></div>
+      <div><label>שם משפחה<input type="text" class="plast" required></label></div>
+    </div>
+    <label>אוניברסיטה<input type="text" class="puni" required></label>
+    <div class="row">
+      <div>
+        <label>סוג כרטיס
+          <select class="ptype" required>
+            <option value="">בחר</option>
+            <option value="fresh">בוגר טרי – 300 ₪</option>
+            <option value="veteran">בוגר ותיק – 360 ₪</option>
+          </select>
         </label>
-
-        <div class="row">
-          <div>
-            <label>סוג כרטיס / Ticket Type
-              <select name="type${i}" class="type-select" required>
-                <option value="">בחר / Select</option>
-                <option value="fresh">בוגר טרי (מחזור 2023+) – 300 ₪</option>
-                <option value="veteran">בוגר ותיק – 360 ₪</option>
-              </select>
-            </label>
-          </div>
-
-          <div>
-            <label>תעריף (₪) / Rate
-              <input type="number" name="rate${i}" class="rate-input" readonly />
-            </label>
-          </div>
-        </div>
-      `;
-
-      const typeSelect = div.querySelector(".type-select");
-      const rateInput  = div.querySelector(".rate-input");
-
-      typeSelect.addEventListener("change", () => {
-        rateInput.value = getRate(typeSelect.value);
-        updateTotal();
-      });
-
-      return div;
-    }
-
-    function syncParticipants() {
-      extraContainer.innerHTML = "";
-      let count = parseInt(ticketCountInput.value, 10);
-      if (isNaN(count) || count < 1) count = 1;
-      ticketCountInput.value = count;
-
-      for (let i = 2; i <= count; i++) {
-        extraContainer.appendChild(createExtraCard(i));
-      }
-      updateTotal();
-    }
-
-    function updateTotal() {
-      let sum = getRate(primaryType.value);
-
-      document.querySelectorAll(".extra").forEach(card => {
-        const type = card.querySelector(".type-select").value;
-        sum += getRate(type);
-      });
-
-      totalAmountEl.textContent = "סה״כ: " + sum + " ₪";
-    }
-
-    async function submitRegistration() {
-      const form = document.getElementById("registrationForm");
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-
-      const buyer = {
-        first_name: buyerFirstInput.value.trim(),
-        last_name:  buyerLastInput.value.trim(),
-        email: document.querySelector('[name="primary_email"]').value.trim(),
-        phone: document.querySelector('[name="primary_phone"]').value.trim(),
-      };
-
-      const participants = [{
-        first_name: primaryParticipantFirst.value.trim(),
-        last_name:  primaryParticipantLast.value.trim(),
-        university: document.getElementById("primary_university").value.trim(),
-        type: primaryType.value,
-        rate: getRate(primaryType.value)
-      }];
-
-      document.querySelectorAll(".extra").forEach(card => {
-        const i = card.dataset.index;
-        participants.push({
-          first_name: card.querySelector(`[name="fn${i}"]`).value.trim(),
-          last_name:  card.querySelector(`[name="ln${i}"]`).value.trim(),
-          university: card.querySelector(`[name="uni${i}"]`).value.trim(),
-          type: card.querySelector(`[name="type${i}"]`).value,
-          rate: getRate(card.querySelector(`[name="type${i}"]`).value)
-        });
-      });
-
-      await fetch(SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ buyer, participants }),
-      });
-
-      alert("ההרשמה נשלחה! בדוק את ה-Google Sheet ואת המייל שלך.");
-    }
-
-    ticketCountInput.addEventListener("change", syncParticipants);
-
-    document.getElementById("addParticipantBtn")
-      .addEventListener("click", () => {
-        let count = parseInt(ticketCountInput.value, 10) || 1;
-        ticketCountInput.value = count + 1;
-        syncParticipants();
-      });
-
-    document.getElementById("submitBtn")
-      .addEventListener("click", submitRegistration);
-
-    // הפעלה ראשונית
-    syncPrimaryParticipantName();
-    syncParticipants();
+      </div>
+      <div>
+        <label>תעריף
+          <input type="number" class="prate" readonly>
+        </label>
+      </div>
+    </div>`;
+  
+  div.querySelector(".ptype").addEventListener("change", e=>{
+    div.querySelector(".prate").value = getRate(e.target.value);
     updateTotal();
-  </script>
+  });
+
+  document.getElementById("extraParticipants").appendChild(div);
+}
+
+document.getElementById("addParticipantBtn").onclick = ()=>{
+  const count = document.querySelectorAll(".extra").length + 2;
+  addParticipant(count);
+  updateTotal();
+};
+
+document.getElementById("submitBtn").onclick = async ()=>{
+  const buyer = {
+    first_name: buyerFirst.value.trim(),
+    last_name:  buyerLast.value.trim(),
+    email:      document.getElementById("buyer_email").value.trim(),
+    phone:      document.getElementById("buyer_phone").value.trim()
+  };
+
+  const participants = [{
+    first_name: p1First.value.trim(),
+    last_name:  p1Last.value.trim(),
+    university: document.getElementById("p1_uni").value.trim(),
+    type:       document.getElementById("p1_type").value,
+    rate:       getRate(document.getElementById("p1_type").value)
+  }];
+
+  document.querySelectorAll(".extra").forEach(card=>{
+    participants.push({
+      first_name: card.querySelector(".pfirst").value.trim(),
+      last_name:  card.querySelector(".plast").value.trim(),
+      university: card.querySelector(".puni").value.trim(),
+      type:       card.querySelector(".ptype").value,
+      rate:       getRate(card.querySelector(".ptype").value)
+    });
+  });
+
+  await fetch(SCRIPT_URL, {
+    method:"POST",
+    mode:"no-cors",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({ buyer, participants })
+  });
+
+  alert("ההרשמה נשלחה!");
+};
+
+updateTotal();
+</script>
 
 </body>
 </html>
-
