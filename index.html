@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>רישום לכנס בוגרים | Alumni Gala Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+      direction: rtl;
+    }
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      background: #ffffff;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo img {
+      max-width: 100%;
+      height: auto;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    h2 {
+      margin-top: 30px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      box-sizing: border-box;
+    }
+    .participants {
+      margin-top: 20px;
+    }
+    .participant {
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 15px;
+      background: #fafafa;
+    }
+    .participant-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .row {
+      display: flex;
+      gap: 10px;
+    }
+    .row > div {
+      flex: 1;
+    }
+    .actions {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-add {
+      background: #e0e0e0;
+    }
+    .btn-submit {
+      background: #b31b1b;
+      color: #fff;
+    }
+    .note {
+      font-size: 0.9em;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- לוגו הכנס -->
+    <div class="logo">
+      <!-- החלף את ה-src לנתיב שבו תאחסן את קובץ הלוגו שלך -->
+      <img src="New Gala Logo 2022.png" alt="Alumni Gala" />
+    </div>
+
+    <h1>רישום לכנס בוגרים<br>Alumni Event Registration</h1>
+
+    <form id="registrationForm">
+      <!-- פרטי מזמין / Registrant details -->
+      <h2>פרטי המזמין / Registrant Details</h2>
+
+      <label>
+        שם פרטי / First Name
+        <input type="text" name="primary_first_name" required />
+      </label>
+
+      <label>
+        שם משפחה / Last Name
+        <input type="text" name="primary_last_name" required />
+      </label>
+
+      <label>
+        דוא"ל / Email
+        <input type="email" name="primary_email" required />
+      </label>
+
+      <label>
+        טלפון / Phone
+        <input type="tel" name="primary_phone" />
+      </label>
+
+      <label>
+        כמות כרטיסים / Number of Tickets
+        <input type="number" id="ticketCount" name="ticket_count" min="1" value="1" required />
+      </label>
+
+      <p class="note">
+        אנא מלא/י פרטים לכל משתתף. / Please fill in details for each participant.
+      </p>
+
+      <!-- משתתפים / Participants -->
+      <div class="participants" id="participantsContainer">
+        <!-- תבנית משתתף ראשון -->
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn btn-add" id="addParticipantBtn">
+          הוסף משתתף נוסף / Add Participant
+        </button>
+
+        <!-- קישור לתשלום -->
+        <a
+          href="https://your-payment-link.com"
+          target="_blank"
+          class="btn btn-submit"
+          onclick="alertPaymentNotice()"
+        >
+          מעבר לתשלום / Proceed to Payment
+        </a>
+      </div>
+
+      <p class="note">
+        לאחר השלמת התשלום, אנא ודאו שקיבלתם אישור במייל. /
+        After completing the payment, please make sure you receive a confirmation email.
+      </p>
+    </form>
+  </div>
+
+  <script>
+    const participantsContainer = document.getElementById('participantsContainer');
+    const ticketCountInput = document.getElementById('ticketCount');
+    const addParticipantBtn = document.getElementById('addParticipantBtn');
+
+    function createParticipant(index) {
+      const div = document.createElement('div');
+      div.className = 'participant';
+      div.dataset.index = index;
+
+      div.innerHTML = `
+        <div class="participant-title">
+          משתתף ${index} / Participant ${index}
+        </div>
+        <div class="row">
+          <div>
+            <label>
+              שם פרטי / First Name
+              <input type="text" name="participant_${index}_first_name" required />
+            </label>
+          </div>
+          <div>
+            <label>
+              שם משפחה / Last Name
+              <input type="text" name="participant_${index}_last_name" required />
+            </label>
+          </div>
+        </div>
+        <label>
+          אוניברסיטה / University
+          <input type="text" name="participant_${index}_university" required />
+        </label>
+        <div class="row">
+          <div>
+            <label>
+              סוג כרטיס / Ticket Type
+              <select name="participant_${index}_rate_type" required>
+                <option value="">בחר / Select</option>
+                <option value="harvard">Harvard Alumni</option>
+                <option value="penn">Penn / Wharton Alumni</option>
+                <option value="guest">אורח / Guest</option>
+                <option value="other">אחר / Other</option>
+              </select>
+            </label>
+          </div>
+          <div>
+            <label>
+              תעריף (₪) / Rate (NIS)
+              <input type="number" name="participant_${index}_rate_amount" min="0" step="1" required />
+            </label>
+          </div>
+        </div>
+      `;
+      return div;
+    }
+
+    function syncParticipantsWithTicketCount() {
+      let desiredCount = parseInt(ticketCountInput.value, 10) || 1;
+      if (desiredCount < 1) desiredCount = 1;
+
+      const currentCount = participantsContainer.children.length;
+
+      // הוספה
+      for (let i = currentCount + 1; i <= desiredCount; i++) {
+        participantsContainer.appendChild(createParticipant(i));
+      }
+      // מחיקה
+      for (let i = currentCount; i > desiredCount; i--) {
+        participantsContainer.removeChild(participantsContainer.lastElementChild);
+      }
+    }
+
+    ticketCountInput.addEventListener('change', syncParticipantsWithTicketCount);
+
+    addParticipantBtn.addEventListener('click', () => {
+      const newIndex = participantsContainer.children.length + 1;
+      participantsContainer.appendChild(createParticipant(newIndex));
+      ticketCountInput.value = newIndex;
+    });
+
+    function alertPaymentNotice() {
+      // כאן אפשר לשמור נתונים לפני מעבר לתשלום (אם תוסיף backend)
+      // For now just a simple notice (optional)
+      // alert('פרטי הרישום נשלחו. כעת תועבר/י לתשלום.');
+    }
+
+    // יצירת משתתף ראשון כברירת מחדל
+    syncParticipantsWithTicketCount();
+  </script>
+</body>
+</html>
